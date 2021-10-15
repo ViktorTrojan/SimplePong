@@ -48,7 +48,13 @@ public class Game {
 
     private void createFrame() {
         jf = new JFrame();
-        jf.setTitle("Ping-Pong");
+        if (getSocket == STATE.SERVER) {
+            jf.setTitle("Server Ping-Pong");
+        } else if (getSocket == STATE.CLIENT) {
+            jf.setTitle("Client Ping-Pong");
+        } else {
+            jf.setTitle("Ping-Pong");
+        }
         jf.setIconImage(new ImageIcon("src/res/images/logo.png").getImage());
         draw = new Draw();
         draw.setPreferredSize(new Dimension((int) Frame.WIDTH, (int) Frame.HEIGHT));
@@ -80,10 +86,10 @@ public class Game {
         if (getSocket == STATE.SERVER) {
             String paddelPos = player[0].paddel.x + ":" + player[0].paddel.y + ":" + player[0].paddel.x2 + ":" + player[0].paddel.y2;
             String ballPos = ball.x + ":" + ball.y + ":" + ball.x2 + ":" + ball.y2;
-            server.sendToClient(paddelPos + "," + ballPos);
+            server.sendToClient(paddelPos + ":" + ballPos);
         } // send own paddel
         else if (getSocket == STATE.CLIENT) {
-            String paddelPos = player[0].paddel.x + ":" + player[0].paddel.y + ":" + player[0].paddel.x2 + ":" + player[0].paddel.y2;
+            String paddelPos = player[1].paddel.x + ":" + player[1].paddel.y + ":" + player[1].paddel.x2 + ":" + player[1].paddel.y2;
             client.sendToServer(paddelPos);
         }
     }

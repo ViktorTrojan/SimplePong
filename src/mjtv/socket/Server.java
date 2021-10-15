@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mjtv.Main;
+import mjtv.game.Paddel;
 import mjtv.socket.Network;
 
 public class Server extends Network {
@@ -19,11 +20,17 @@ public class Server extends Network {
     }
 
     public void sendToClient(String msg) {
-        out.println("SERVER: " + msg);
+        out.println(msg);
+        out.flush();
     }
 
     public void receivedMSG(String msg) {
-        System.out.println(msg);
+        String[] pos = msg.split(":");
+        Paddel p = Main.instance.game.player[1].paddel;
+        p.x = Float.parseFloat(pos[0]);
+        p.y = Float.parseFloat(pos[1]);
+        p.x2 = Float.parseFloat(pos[2]);
+        p.y2 = Float.parseFloat(pos[3]);
     }
 
     public void run() {

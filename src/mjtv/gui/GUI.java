@@ -250,14 +250,14 @@ public class GUI extends javax.swing.JFrame {
 
     private void JOINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JOINActionPerformed
         toggleAll(false);
-        Main.instance.game.client = new Client(IP.getText(), Network.PORT);
         Main.instance.game.getSocket = STATE.CLIENT;
+        Main.instance.game.client = new Client(IP.getText(), Network.PORT);
     }//GEN-LAST:event_JOINActionPerformed
 
     private void STARTSERVERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_STARTSERVERActionPerformed
         toggleAll(false);
-        Main.instance.game.server = new Server(Network.PORT);
         Main.instance.game.getSocket = STATE.SERVER;
+        Main.instance.game.server = new Server(Network.PORT);
     }//GEN-LAST:event_STARTSERVERActionPerformed
 
     private void returnToMainFromHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnToMainFromHelpActionPerformed
