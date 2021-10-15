@@ -131,14 +131,14 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="IPLABEL" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="enterIP1" max="32767" attributes="0"/>
+                                      <Component id="IP" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="JoinLocal1" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="STARTSERVER" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="JoinLocal" min="-2" max="-2" attributes="0"/>
+                              <Component id="JOIN" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -157,16 +157,16 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="PLAYER1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="enterIP1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="IP" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="IPLABEL" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="PLAYER2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="JoinLocal1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="STARTSERVER" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="JoinLocal" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="JOIN" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="345" max="32767" attributes="0"/>
                       <Component id="returnToMainFromPlay" min="-2" max="-2" attributes="0"/>
@@ -198,7 +198,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PLAYER2ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="JoinLocal1">
+            <Component class="javax.swing.JButton" name="STARTSERVER">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="24" style="0"/>
@@ -206,10 +206,10 @@
                 <Property name="text" type="java.lang.String" value="START SERVER"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JoinLocal1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="STARTSERVERActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="JoinLocal">
+            <Component class="javax.swing.JButton" name="JOIN">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="24" style="0"/>
@@ -217,10 +217,10 @@
                 <Property name="text" type="java.lang.String" value="JOIN"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JoinLocalActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JOINActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="enterIP1">
+            <Component class="javax.swing.JTextField" name="IP">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="18" style="0"/>
@@ -228,11 +228,8 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="127.0.0.1"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enterIP1ActionPerformed"/>
-              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="IPLABEL">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="18" style="0"/>

@@ -1,0 +1,73 @@
+package mjtv.socket;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Network {
+
+    public enum STATE {
+        NONE,
+        SERVER,
+        CLIENT
+    }
+
+    public static final int PORT = 1234;
+    public int port;
+    public String ip;
+    public ServerSocket serverSocket;
+    public Socket socket;
+    public PrintWriter out;
+    public BufferedReader in;
+
+    public void initSocket(Socket socket) {
+        this.socket = socket;
+        initStreams();
+    }
+
+    public void initStreams() {
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException ex) {
+            Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void openServerSocket() {
+        try {
+            serverSocket = new ServerSocket(port);
+        } catch (IOException ex) {
+            Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void openSocket() {
+        try {
+            socket = serverSocket.accept();
+        } catch (IOException ex) {
+            Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void closeSocket() {
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void closeServerSocket() {
+        try {
+            serverSocket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}

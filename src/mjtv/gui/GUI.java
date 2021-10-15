@@ -1,7 +1,10 @@
 package mjtv.gui;
 
-import java.awt.event.KeyEvent;
-import javax.swing.JButton;
+import mjtv.Main;
+import mjtv.socket.Client;
+import mjtv.socket.Network;
+import mjtv.socket.Network.STATE;
+import mjtv.socket.Server;
 
 public class GUI extends javax.swing.JFrame {
     
@@ -9,6 +12,14 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void toggleAll(boolean flag) {
+        PLAYER1.setEnabled(flag);
+        PLAYER2.setEnabled(flag);
+        IP.setEnabled(flag);
+        JOIN.setEnabled(flag);
+        STARTSERVER.setEnabled(flag);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -21,10 +32,10 @@ public class GUI extends javax.swing.JFrame {
         Play = new javax.swing.JPanel();
         PLAYER1 = new javax.swing.JButton();
         PLAYER2 = new javax.swing.JButton();
-        JoinLocal1 = new javax.swing.JButton();
-        JoinLocal = new javax.swing.JButton();
-        enterIP1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        STARTSERVER = new javax.swing.JButton();
+        JOIN = new javax.swing.JButton();
+        IP = new javax.swing.JTextField();
+        IPLABEL = new javax.swing.JLabel();
         returnToMainFromPlay = new javax.swing.JButton();
         Help = new javax.swing.JPanel();
         Description = new javax.swing.JTextPane();
@@ -100,33 +111,28 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        JoinLocal1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        JoinLocal1.setText("START SERVER");
-        JoinLocal1.addActionListener(new java.awt.event.ActionListener() {
+        STARTSERVER.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        STARTSERVER.setText("START SERVER");
+        STARTSERVER.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JoinLocal1ActionPerformed(evt);
+                STARTSERVERActionPerformed(evt);
             }
         });
 
-        JoinLocal.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        JoinLocal.setText("JOIN");
-        JoinLocal.addActionListener(new java.awt.event.ActionListener() {
+        JOIN.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        JOIN.setText("JOIN");
+        JOIN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JoinLocalActionPerformed(evt);
+                JOINActionPerformed(evt);
             }
         });
 
-        enterIP1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        enterIP1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        enterIP1.setText("127.0.0.1");
-        enterIP1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterIP1ActionPerformed(evt);
-            }
-        });
+        IP.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        IP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        IP.setText("127.0.0.1");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel3.setText("IP:");
+        IPLABEL.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        IPLABEL.setText("IP:");
 
         returnToMainFromPlay.setText("Return To Main");
         returnToMainFromPlay.addActionListener(new java.awt.event.ActionListener() {
@@ -149,12 +155,12 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(PlayLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(IPLABEL)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(enterIP1))
-                            .addComponent(JoinLocal1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(IP))
+                            .addComponent(STARTSERVER, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JoinLocal))
+                        .addComponent(JOIN))
                     .addGroup(PlayLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(returnToMainFromPlay)))
@@ -168,13 +174,13 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(PlayLayout.createSequentialGroup()
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PLAYER1)
-                            .addComponent(enterIP1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(IP, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(IPLABEL))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PLAYER2)
-                            .addComponent(JoinLocal1)))
-                    .addComponent(JoinLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(STARTSERVER)))
+                    .addComponent(JOIN, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
                 .addComponent(returnToMainFromPlay)
                 .addGap(30, 30, 30))
@@ -239,20 +245,20 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_PLAYER1ActionPerformed
 
     private void PLAYER2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER2ActionPerformed
-        
+        Main.instance.game.init();
     }//GEN-LAST:event_PLAYER2ActionPerformed
 
-    private void JoinLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinLocalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JoinLocalActionPerformed
+    private void JOINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JOINActionPerformed
+        toggleAll(false);
+        Main.instance.game.client = new Client(IP.getText(), Network.PORT);
+        Main.instance.game.getSocket = STATE.CLIENT;
+    }//GEN-LAST:event_JOINActionPerformed
 
-    private void JoinLocal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinLocal1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JoinLocal1ActionPerformed
-
-    private void enterIP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterIP1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_enterIP1ActionPerformed
+    private void STARTSERVERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_STARTSERVERActionPerformed
+        toggleAll(false);
+        Main.instance.game.server = new Server(Network.PORT);
+        Main.instance.game.getSocket = STATE.SERVER;
+    }//GEN-LAST:event_STARTSERVERActionPerformed
 
     private void returnToMainFromHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnToMainFromHelpActionPerformed
         Wrapper.setSelectedIndex(0);
@@ -266,17 +272,17 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextPane Description;
     private javax.swing.JButton HELP;
     private javax.swing.JPanel Help;
-    private javax.swing.JButton JoinLocal;
-    private javax.swing.JButton JoinLocal1;
+    private javax.swing.JTextField IP;
+    private javax.swing.JLabel IPLABEL;
+    private javax.swing.JButton JOIN;
     private javax.swing.JPanel MainMenu;
     private javax.swing.JButton PLAY;
     private javax.swing.JButton PLAYER1;
     private javax.swing.JButton PLAYER2;
     private javax.swing.JPanel Play;
     private javax.swing.JButton QUIT;
+    private javax.swing.JButton STARTSERVER;
     private javax.swing.JTabbedPane Wrapper;
-    private javax.swing.JTextField enterIP1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton returnToMainFromHelp;
     private javax.swing.JButton returnToMainFromPlay;
     // End of variables declaration//GEN-END:variables

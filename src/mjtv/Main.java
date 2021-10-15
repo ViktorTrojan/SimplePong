@@ -1,6 +1,7 @@
 package mjtv;
 
 import javax.swing.ImageIcon;
+import mjtv.game.Game;
 import mjtv.gui.GUI;
 
 public class Main {
@@ -13,10 +14,6 @@ public class Main {
         instance = this;
         createMainMenu();
         game = new Game();
-    }
-
-    public void startGame() {
-        game.start();
     }
 
     public void createMainMenu() {
