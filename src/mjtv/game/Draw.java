@@ -8,21 +8,15 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 import mjtv.Main;
 
-public class Draw extends JPanel implements KeyListener {
+public class Draw extends JLabel implements KeyListener {
 
     @Override
     protected void paintComponent(Graphics g) {
-        // updates here before Drawing
         Main.instance.game.fpscounter.run();
-
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        Main.instance.game.draw(g2);
+        Main.instance.game.draw(g);
         repaint();
     }
 

@@ -3,6 +3,7 @@ package mjtv.game;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -76,42 +77,42 @@ public class Game {
         jf.setVisible(true);
     }
 
-    public void drawBackground(Graphics2D g2) {
-        g2.setColor(new Color(128, 128, 128));
-        g2.fillRect(0, 0, (int) Frame.cW(1920), (int) Frame.cW(1080));
+    public void drawBackground(Graphics g) {
+        g.setColor(new Color(128, 128, 128));
+        g.fillRect(0, 0, (int) Frame.cW(1920), (int) Frame.cW(1080));
     }
 
-    public void drawMiddleLine(Graphics2D g2) {
+    public void drawMiddleLine(Graphics g) {
         float lineWidth = Frame.cW(12);
-        Graphics2D g2d = (Graphics2D) g2.create();
+        Graphics2D g2d = (Graphics2D) g.create();
         g2d.setColor(new Color(128, 128, 255));
         BasicStroke bs1 = new BasicStroke(lineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0, new float[]{lineWidth * 2}, 0);
         g2d.setStroke(bs1);
         g2d.drawLine((int) Frame.cW(1920 / 2), 0, (int) Frame.cW(1920 / 2), (int) Frame.cW(1080));
     }
 
-    public void drawEndScreen(Graphics2D g2) {
+    public void drawEndScreen(Graphics g) {
         int w = (int) Frame.cW(800), h = (int) Frame.cH(650);
-        g2.setColor(new Color(255, 255, 255, 200));
-        g2.fillRect((int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cW(w * 2), (int) Frame.cH(h * 2));
+        g.setColor(new Color(255, 255, 255, 200));
+        g.fillRect((int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cW(w * 2), (int) Frame.cH(h * 2));
 
-        g2.setColor(new Color(0, 0, 0));
+        g.setColor(new Color(0, 0, 0));
         if (winner == WINNER.PLAYER1) {
-            Draw.drawString(g2, "Player 1 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
-        } else Draw.drawString(g2, "Player 2 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
+            Draw.drawString(g, "Player 1 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
+        } else Draw.drawString(g, "Player 2 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
     }
 
-    public void draw(Graphics2D g2) {
-        drawBackground(g2);
-        drawMiddleLine(g2);
+    public void draw(Graphics g) {
+        drawBackground(g);
+        drawMiddleLine(g);
 
         for (Player p : player) {
-            p.draw(g2);
+            p.draw(g);
         }
-        ball.draw(g2);
+        ball.draw(g);
 
         if (winner != WINNER.NONE) {
-            drawEndScreen(g2);
+            drawEndScreen(g);
         }
     }
 

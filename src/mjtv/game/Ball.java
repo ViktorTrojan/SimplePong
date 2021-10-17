@@ -2,6 +2,7 @@ package mjtv.game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -28,10 +29,10 @@ public class Ball {
     }
 
     public void SetDirection(float newdirx, float newdiry) {
-        // Normalize the direction vector and multiply with BALL_SPEED
-        float length = (float) Math.sqrt(newdirx * newdirx + newdiry * newdiry);
-        xVel = speed * (newdirx / length);
-        yVel = speed * (newdiry / length);
+        Vector2f v = new Vector2f(newdirx, newdiry);
+        v.normalize();
+        xVel = v.x * speed;
+        yVel = v.y * speed;
     }
 
     public float GetReflection(Paddle p, float hity) {
@@ -137,20 +138,20 @@ public class Ball {
         }
     }
 
-    public void drawTrail(Graphics2D g2) {
-        Graphics2D g2d = (Graphics2D) g2.create();
+    public void drawTrail(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g.create();
         for (int i = 0; i < trail.size() - 1; i++) {
             int j = (trail.size() - 1 - i) * (160 / SIZE);
             g2d.setColor(new Color(trailColor.getRed() - j, trailColor.getGreen() - j, trailColor.getBlue() - j));
-            g2d.setStroke(new BasicStroke(Frame.cW(i)));
+            g2d.setStroke(new BasicStroke(Frame.cW(i+1)));
             g2d.draw(new Line2D.Float(Frame.cW(trail.get(i).x), Frame.cH(trail.get(i).y), Frame.cW(trail.get(i + 1).x), Frame.cH(trail.get(i + 1).y)));
         }
     }
 
-    public void draw(Graphics2D g2) {
-        drawTrail(g2);
-        g2.setColor(color);
-        g2.fillOval((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(SIZE), (int) Frame.cW(SIZE));
+    public void draw(Graphics g) {
+        drawTrail(g);
+        g.setColor(color);
+        g.fillOval((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(SIZE), (int) Frame.cW(SIZE));
     }
 
     public void reset() {
