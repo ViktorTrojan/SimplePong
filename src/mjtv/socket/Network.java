@@ -11,13 +11,13 @@ import java.util.logging.Logger;
 
 public class Network {
 
-    public enum STATE {
+    public static enum STATE {
         NONE,
         SERVER,
         CLIENT
     }
 
-    public static final int PORT = 1234;
+    public static final int PORT = 25565;
     public int port;
     public String ip;
     public ServerSocket serverSocket;

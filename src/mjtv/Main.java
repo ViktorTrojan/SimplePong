@@ -1,11 +1,11 @@
 package mjtv;
 
-import javax.swing.ImageIcon;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import mjtv.game.Game;
 import mjtv.gui.GUI;
 
 public class Main {
-
     public static Main instance;
     public GUI mainMenu;
     public Game game;
@@ -39,8 +39,12 @@ public class Main {
         }
         //</editor-fold>
         mainMenu = new GUI();
-        mainMenu.setTitle("Ping-Pong"); // set the Title
-        mainMenu.setIconImage(new ImageIcon("src/res/images/logo.png").getImage());
+        mainMenu.setTitle("Main Menu"); // set the Title
+        try {
+            mainMenu.setIconImage(ImageIO.read(getClass().getResource("/res/images/Logo.png")));
+        } catch (IOException ex) {
+            System.out.println("Couldn't Load Logo for Main Menu!");
+        }
         mainMenu.setLocationRelativeTo(null); // Center Window on Screen
         mainMenu.setVisible(true); // Make Window Visible
     }

@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mjtv.Main;
-import mjtv.game.Paddel;
+import mjtv.game.Paddle;
 import mjtv.socket.Network;
 
 public class Server extends Network {
@@ -26,7 +26,7 @@ public class Server extends Network {
 
     public void receivedMSG(String msg) {
         String[] pos = msg.split(":");
-        Paddel p = Main.instance.game.player[1].paddel;
+        Paddle p = Main.instance.game.player[1].paddle;
         p.x = Float.parseFloat(pos[0]);
         p.y = Float.parseFloat(pos[1]);
         p.x2 = Float.parseFloat(pos[2]);

@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import mjtv.Main;
 import mjtv.game.Ball;
-import mjtv.game.Paddel;
+import mjtv.game.Paddle;
 import mjtv.socket.Network;
 
 public class Client extends Network {
@@ -49,7 +49,7 @@ public class Client extends Network {
 
     public void receivedMSG(String msg) {
         String[] pos = msg.split(":");
-        Paddel p = Main.instance.game.player[0].paddel;
+        Paddle p = Main.instance.game.player[0].paddle;
         p.x = Float.parseFloat(pos[0]);
         p.y = Float.parseFloat(pos[1]);
         p.x2 = Float.parseFloat(pos[2]);
@@ -58,7 +58,7 @@ public class Client extends Network {
         Ball b = Main.instance.game.ball;
         b.x = Float.parseFloat(pos[4]);
         b.y = Float.parseFloat(pos[5]);
-        b.x2 = Float.parseFloat(pos[6]);
-        b.y2 = Float.parseFloat(pos[7]);
+        b.xVel = Float.parseFloat(pos[6]);
+        b.yVel = Float.parseFloat(pos[7]);
     }
 }

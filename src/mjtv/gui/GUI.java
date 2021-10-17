@@ -1,5 +1,16 @@
 package mjtv.gui;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mjtv.Main;
 import mjtv.socket.Client;
 import mjtv.socket.Network;
@@ -7,7 +18,7 @@ import mjtv.socket.Network.STATE;
 import mjtv.socket.Server;
 
 public class GUI extends javax.swing.JFrame {
-    
+
     public GUI() {
         initComponents();
     }
@@ -19,12 +30,12 @@ public class GUI extends javax.swing.JFrame {
         JOIN.setEnabled(flag);
         STARTSERVER.setEnabled(flag);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Wrapper = new javax.swing.JTabbedPane();
+        Wrapper = new mjtv.gui.StyleTabbedPane();
         MainMenu = new javax.swing.JPanel();
         PLAY = new javax.swing.JButton();
         HELP = new javax.swing.JButton();
@@ -42,8 +53,6 @@ public class GUI extends javax.swing.JFrame {
         returnToMainFromHelp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        Wrapper.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
 
         PLAY.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         PLAY.setText("PLAY");
@@ -74,23 +83,23 @@ public class GUI extends javax.swing.JFrame {
         MainMenuLayout.setHorizontalGroup(
             MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainMenuLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(54, 54, 54)
                 .addGroup(MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PLAY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(HELP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(QUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         MainMenuLayout.setVerticalGroup(
             MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainMenuLayout.createSequentialGroup()
-                .addGap(118, 118, 118)
+                .addGap(68, 68, 68)
                 .addComponent(PLAY)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(HELP)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(QUIT)
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         Wrapper.addTab("main", MainMenu);
@@ -134,6 +143,7 @@ public class GUI extends javax.swing.JFrame {
         IPLABEL.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         IPLABEL.setText("IP:");
 
+        returnToMainFromPlay.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         returnToMainFromPlay.setText("Return To Main");
         returnToMainFromPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,9 +156,9 @@ public class GUI extends javax.swing.JFrame {
         PlayLayout.setHorizontalGroup(
             PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlayLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PlayLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(PLAYER1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(PLAYER2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -161,16 +171,14 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(STARTSERVER, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JOIN))
-                    .addGroup(PlayLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(returnToMainFromPlay)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(returnToMainFromPlay))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PlayLayout.setVerticalGroup(
             PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlayLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PlayLayout.createSequentialGroup()
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PLAYER1)
@@ -180,17 +188,19 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PLAYER2)
                             .addComponent(STARTSERVER)))
-                    .addComponent(JOIN, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
+                    .addComponent(JOIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(returnToMainFromPlay)
-                .addGap(30, 30, 30))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
 
         Wrapper.addTab("play", Play);
 
+        Description.setEditable(false);
         Description.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Description.setText("Ping Pong is a Game that was Developed to make people rage quit quick brown fox jumps over ...");
+        Description.setText("Ping Pong is a Game where you have to defend your Net with a Paddel. First Player to reach 10 Points Wins!\nPlayer1 movement W - S\nPlayer 2 movement ↑ - ↓\n\nCredits:\nM - Coding\nJ - Graphics Designer\nT - Tidullu dreck\nV - Coding\n\n");
 
+        returnToMainFromHelp.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         returnToMainFromHelp.setText("Return to Main");
         returnToMainFromHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,27 +213,23 @@ public class GUI extends javax.swing.JFrame {
         HelpLayout.setHorizontalGroup(
             HelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HelpLayout.createSequentialGroup()
-                .addGap(0, 205, Short.MAX_VALUE)
-                .addComponent(returnToMainFromHelp)
-                .addGap(0, 206, Short.MAX_VALUE))
-            .addGroup(HelpLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(returnToMainFromHelp)
+                .addContainerGap(358, Short.MAX_VALUE))
+            .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         HelpLayout.setVerticalGroup(
             HelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HelpLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(returnToMainFromHelp)
-                .addGap(0, 64, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         Wrapper.addTab("help", Help);
 
-        getContentPane().add(Wrapper, java.awt.BorderLayout.CENTER);
+        getContentPane().add(Wrapper, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -237,11 +243,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_HELPActionPerformed
 
     private void QUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QUITActionPerformed
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_QUITActionPerformed
 
     private void PLAYER1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER1ActionPerformed
-        
+
     }//GEN-LAST:event_PLAYER1ActionPerformed
 
     private void PLAYER2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER2ActionPerformed
@@ -282,10 +288,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel Play;
     private javax.swing.JButton QUIT;
     private javax.swing.JButton STARTSERVER;
-    private javax.swing.JTabbedPane Wrapper;
+    private mjtv.gui.StyleTabbedPane Wrapper;
     private javax.swing.JButton returnToMainFromHelp;
     private javax.swing.JButton returnToMainFromPlay;
     // End of variables declaration//GEN-END:variables
 
-    
 }

@@ -1,41 +1,36 @@
 package mjtv.game;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Player {
-    // Player class holds paddel, score,...
+
+    // Player class holds paddle, score,...
     public int score;
-    public Paddel paddel;
-    public static float scoreXMiddleLineSpace, scoreYSpace;
-    public static int fontSize;
+    public Paddle paddle;
     public Color color;
-    
-    public Player(int location) {
+
+    public Player(Paddle.POS pos) {
         score = 0;
-        paddel = new Paddel(location);
-        fontSize = 100;
-        scoreXMiddleLineSpace = 25.0f;
-        scoreYSpace = -15.0f;
+        paddle = new Paddle(pos);
     }
-    
-    public void draw(Graphics g) {
-        paddel.draw(g);
-        g.setColor(color);
-        if(paddel.location==Paddel.LEFT){
-            Draw.drawString(g, String.valueOf(score), (int)(Frame.cW(1920/2-scoreXMiddleLineSpace)-100), (int)Frame.cH(scoreYSpace), (int)Frame.cH(fontSize));
-        }else if(paddel.location==Paddel.RIGHT){
-            Draw.drawString(g, String.valueOf(score), (int)Frame.cW(1920/2+scoreXMiddleLineSpace), (int)Frame.cH(scoreYSpace), (int)Frame.cH(fontSize));
+
+    public void drawScore(Graphics2D g2) {
+        int fontSize = (int) Frame.cW(100);
+        if (paddle.pos == Paddle.POS.LEFT) {
+            Draw.drawString(g2, String.valueOf(score), (int) (Frame.cW(1920 / 2 - Draw.getStringWidth(String.valueOf(score), fontSize, g2) / 2) - fontSize), (int) Frame.cH(20), (int) Frame.cH(fontSize));
+        } else if (paddle.pos == Paddle.POS.RIGHT) {
+            Draw.drawString(g2, String.valueOf(score), (int) (Frame.cW(1920 / 2 - Draw.getStringWidth(String.valueOf(score), fontSize, g2) / 2) + fontSize), (int) Frame.cH(20), (int) Frame.cH(fontSize));
         }
     }
-    
-    public void run(){
-        paddel.run();
+
+    public void draw(Graphics2D g2) {
+        paddle.draw(g2);
+        g2.setColor(color);
+        drawScore(g2);
     }
-    
-    public boolean checkIfWin(int pointsToWin){
-        return score>=pointsToWin;
+
+    public void run() {
+        paddle.run();
     }
-    
-    
 }

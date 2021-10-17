@@ -1,114 +1,167 @@
 package mjtv.game;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import mjtv.Main;
+import mjtv.Vector2f;
 
 public class Ball {
 
-    public static int SIZE = 70;
+    public static int SIZE = 40, SPEED = 16;
+
     public float x, y, x2, y2;
-    public float xVel, yVel;
-    public float acceleration;
-    public boolean collided;
-    public static final float MAXXVEL = 4.2f;
-    public static final float MINXVEL = 3.8f;
-    public static final float MAXYVEL = 5.2f;
-    public static final float MINYVEL = 4.8f;
+    public float xVel, yVel, speed = SPEED;
+    public Color color;
+
+    // trail //
+    ArrayList<Vector2f> trail = new ArrayList<>();
+    Color trailColor;
+    // trail //
 
     public Ball() {
-        acceleration = 1.0007f;
-        collided = false;
-        resetBall();
+        color = new Color(255, 255, 255);
+        trailColor = new Color(235, 215, 255);
+        reset();
     }
 
-    public void paddelCollision() {
-        for (Player p : Main.instance.game.player) {
-            if (Collision.collideRect(x, y, x2, y2, p.paddel.x, p.paddel.y, p.paddel.x2, p.paddel.y2)) {
-                xVel = -xVel;
-                collided = true;
-            }
-//            else if (y <= p.paddel.y && y >= p.paddel.y2 && x >= p.paddel.x) {
-//
-//                // Get the position of the center of the ball
-//                float mx = x + rad;
-//                float my = y + rad;
-//
-//                // Get the position of the corner of the paddle
-//                float px = p.paddel.x2;
-//                float py = p.paddel.y;
-//                if (y + SIZE > p.paddel.y) {
-//                    // if the ball is below the top edge, use the bottom corner
-//                    // of the paddle - else use the top corner of the paddle
-//                    py += p.paddel.y2 - p.paddel.y;
-//                }
-//
-//                // Do some trig to determine if the ball surface touched the paddle edge
-//                // Calc the distance (C = sqrt(A^2 + B^2))
-//                float dist = (float) Math.pow(Math.pow(mx - px, 2) + Math.pow(my - py, 2), 0.5);
-//
-//                // Check if the distance is within the padding zone
-//                if (dist <= rad && dist >= rad) {
-//                    // Get the angle of contact as Arc-sin of dx/dy
-//                    float angle = (float) Math.asin(mx - px / my - py);
-//
-//                    // Adjust the velocity accordingly
-//                    yVel = (-yVel * (float) Math.cos(angle)) + (-xVel * (float) Math.sin(angle));
-//                    xVel = (-xVel * (float) Math.cos(angle)) + (-yVel * (float) Math.sin(angle));
-//                }
-//            }
+    public void SetDirection(float newdirx, float newdiry) {
+        // Normalize the direction vector and multiply with BALL_SPEED
+        float length = (float) Math.sqrt(newdirx * newdirx + newdiry * newdiry);
+        xVel = speed * (newdirx / length);
+        yVel = speed * (newdiry / length);
+    }
+
+    public float GetReflection(Paddle p, float hity) {
+        // Make sure the hity variable is within the height of the paddle
+        if (hity < 0) {
+            hity = 0;
+        } else if (hity > (p.y2 - p.y)) {
+            hity = p.y2 - p.y;
         }
+
+        // Everything above the center of the paddle is reflected upward
+        // while everything below the center is reflected downward
+        hity -= (p.y2 - p.y) / 2.0f;
+
+        // Scale the reflection, making it fall in the range -2.0f to 2.0f
+        return 2.0f * (hity / ((p.y2 - p.y) / 2.0f));
     }
 
-    public void run() {
+    public void updatePosition() {
         x += xVel;
         y += yVel;
         x2 = x + SIZE;
         y2 = y + SIZE;
+    }
 
-        //acceleration
-        xVel *= acceleration;
-        yVel *= acceleration;
-        
-        if (x2 <= 0) {
-            Main.instance.game.player[1].score++;
-            resetBall();
-
-        }
+    public boolean checkWin() {
         if (x >= 1920) {
             Main.instance.game.player[0].score++;
-            resetBall();
+            if (Main.instance.game.player[0].score == Game.WINPOINTS) {
+                Main.instance.game.winner = Game.WINNER.PLAYER1;
+            }
+            Main.instance.game.scored();
+            return true;
+        } else if (x2 <= 0) {
+            Main.instance.game.player[1].score++;
+            if (Main.instance.game.player[1].score == Game.WINPOINTS) {
+                Main.instance.game.winner = Game.WINNER.PLAYER2;
+            }
+            Main.instance.game.scored();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean paddleCollision() {
+        float my = y + SIZE / 2f;
+        Paddle p1 = Main.instance.game.player[0].paddle;
+        Paddle p2 = Main.instance.game.player[1].paddle;
+        if (Collision.paddleCollision(this, p1)) {
+            //x = p1.x2;
+            speed *= 1.05;
+            SetDirection(1, GetReflection(p1, my - p1.y));
+            return true;
         }
 
+        if (Collision.paddleCollision(this, p2)) {
+            //x = p2.x - SIZE;
+            speed *= 1.05;
+            SetDirection(-1, GetReflection(p2, my - p2.y));
+            return true;
+        }
+        return false;
+    }
+
+    public boolean wallCollision() {
         if (Collision.collideWallTop(y)) {
+            y = 0;
             yVel = -yVel;
-            collided = true;
+            return true;
         }
         if (Collision.collideWallBottom(y2)) {
+            y = 1080 - SIZE;
             yVel = -yVel;
-            collided = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkCollision() {
+        if (wallCollision()) {
+            Sound.wallhit.play(70);
+            return true;
         }
 
-        paddelCollision();
-        
-        if (collided) {
-            collided = false;
+        if (paddleCollision()) {
+            Sound.paddlehit.play(100);
+            return true;
+        }
+        return false;
+    }
+
+    public void run() {
+        trail.add(new Vector2f(x + SIZE / 2, y + SIZE / 2));
+        if (trail.size() >= SIZE / 2) {
+            trail.remove(0);
+        }
+        updatePosition();
+        if (checkWin()) {
+            return;
+        }
+        if (checkCollision()) {
+            return;
         }
     }
 
-    public void draw(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.drawOval((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(SIZE), (int) Frame.cW(SIZE));
+    public void drawTrail(Graphics2D g2) {
+        Graphics2D g2d = (Graphics2D) g2.create();
+        for (int i = 0; i < trail.size() - 1; i++) {
+            int j = (trail.size() - 1 - i) * (160 / SIZE);
+            g2d.setColor(new Color(trailColor.getRed() - j, trailColor.getGreen() - j, trailColor.getBlue() - j));
+            g2d.setStroke(new BasicStroke(Frame.cW(i)));
+            g2d.draw(new Line2D.Float(Frame.cW(trail.get(i).x), Frame.cH(trail.get(i).y), Frame.cW(trail.get(i + 1).x), Frame.cH(trail.get(i + 1).y)));
+        }
     }
 
-    public void resetBall() {
+    public void draw(Graphics2D g2) {
+        drawTrail(g2);
+        g2.setColor(color);
+        g2.fillOval((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(SIZE), (int) Frame.cW(SIZE));
+    }
+
+    public void reset() {
+        trail.clear();
+        speed = SPEED;
         randomVelocity();
         setDefaultPostion();
     }
 
     public void randomVelocity() {
-        xVel = (float) (Math.random() * (MAXXVEL - MINXVEL) + MINXVEL);
-        yVel = (float) (Math.random() * (MAXYVEL - MINYVEL) + MINYVEL);
+        SetDirection((float) (Math.random() * 2) + 1, (float) (Math.random() * 2) + 1);
         if (Math.random() < 0.5) {
             xVel = -xVel;
         }
