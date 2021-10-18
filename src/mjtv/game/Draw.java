@@ -3,6 +3,7 @@ package mjtv.game;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
@@ -10,6 +11,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import mjtv.Main;
+import mjtv.socket.Network;
 
 public class Draw extends JLabel implements KeyListener {
 
@@ -29,6 +31,14 @@ public class Draw extends JLabel implements KeyListener {
     public static float getStringWidth(String text, int size, Graphics g) {
         Font f = new Font("Calibri", Font.PLAIN, size);
         return g.getFontMetrics(f).stringWidth(text);
+    }
+
+    public static Graphics2D getGraphics2D(Graphics g, boolean aliasing) {
+        Graphics2D g2 = (Graphics2D) g;
+        if (aliasing) {
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        }
+        return g2;
     }
 
     @Override
@@ -60,11 +70,18 @@ public class Draw extends JLabel implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) {
             Main.instance.game.player[1].paddle.acceleration = 0.8f;
         }
-        
-        if (e.getKeyCode() == KeyEvent.VK_I) {
-            Main.instance.game.replay();
-        } else if (e.getKeyCode() == KeyEvent.VK_O) {
-            Main.instance.game.jf.dispose();
+
+        if (Main.instance.game.winner != Game.WINNER.NONE) {
+            if (e.getKeyCode() == KeyEvent.VK_I) {
+                Main.instance.game.replay();
+            } else if (e.getKeyCode() == KeyEvent.VK_O) {
+                if (Main.instance.game.getSocket == Network.STATE.CLIENT) {
+                    Main.instance.game.client.out.close();
+                } else if (Main.instance.game.getSocket == Network.STATE.SERVER) {
+                    Main.instance.game.server.out.close();
+                }
+                Main.instance.game.jf.dispose();
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import mjtv.Main;
 import mjtv.game.Ball;
+import mjtv.game.Game;
 import mjtv.game.Paddle;
 import mjtv.socket.Network;
 
@@ -15,7 +16,7 @@ public class Client extends Network {
         this.ip = ip;
         init();
     }
-    
+
     public void init() {
         try {
             initSocket(new Socket(ip, port));
@@ -24,13 +25,15 @@ public class Client extends Network {
             }).start();
 
         } catch (IOException ex) {
-            System.out.println("Couldn't Join the Server!");
+            Main.instance.mainMenu.setSocketStatus("Couldn't find Server!");
         }
     }
-    
+
     public void run() {
-        Main.instance.game.initWithFrame();
-        
+        Main.instance.game.init();
+        Main.instance.game.getSocket = STATE.CLIENT;
+        Main.instance.game.createFrame();
+
         String res;
         Scanner sc = new Scanner(in);
         while (sc.hasNextLine()) {
@@ -54,7 +57,7 @@ public class Client extends Network {
         p.y = Float.parseFloat(pos[1]);
         p.x2 = Float.parseFloat(pos[2]);
         p.y2 = Float.parseFloat(pos[3]);
-        
+
         Ball b = Main.instance.game.ball;
         b.x = Float.parseFloat(pos[4]);
         b.y = Float.parseFloat(pos[5]);

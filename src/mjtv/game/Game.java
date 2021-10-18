@@ -47,19 +47,21 @@ public class Game {
         player[1].color = Color.RED;
         player[1].paddle.color = Color.RED;
     }
-
-    public void initWithFrame() {
+    
+    public void start() {
         init();
         createFrame();
     }
-    
+
     public void init() {
+        winner = WINNER.NONE;
+        getSocket = STATE.NONE;
         fpscounter = new Fpscounter(FPS);
         ball = new Ball();
         initPlayers();
     }
 
-    private void createFrame() {
+    public void createFrame() {
         jf = new JFrame();
         if (getSocket == STATE.SERVER) {
             jf.setTitle("Server Ping-Pong");
@@ -104,48 +106,48 @@ public class Game {
         if (winner == WINNER.PLAYER1) {
             Draw.drawString(g, "Player 1 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
         } else Draw.drawString(g, "Player 2 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
-        */
-        int w = (int)Frame.WIDTH/2;
-        int h = (int)Frame.HEIGHT*3/8;
-        int x = (int)Frame.WIDTH/2-w/2;
-        int y = (int)Frame.HEIGHT/2-h/2;
+         */
+        int w = (int) Frame.WIDTH / 2;
+        int h = (int) Frame.HEIGHT * 3 / 8;
+        int x = (int) Frame.WIDTH / 2 - w / 2;
+        int y = (int) Frame.HEIGHT / 2 - h / 2;
         int fontWinSize = (int) Frame.cW(110);
         int fontLoseSize = (int) Frame.cW(90);
         int fontReplayQuitSize = (int) Frame.cW(45);
         int space = (int) Frame.cW(25);
         int border = (int) Frame.cW(12);
-        
+
         //background
         g.setColor(new Color(128, 128, 255));
         g.fillRect(x, y, w, h);
-        
+
         //border
-        g.setColor(new Color(0, 0, 0));        
-        g.fillRect(x,          y,           w,        border);
-        g.fillRect(x,          y,           border,   h);
-        g.fillRect(x,          y+h-border,  w,        border);
-        g.fillRect(x+w-border, y,           border,        h);
-        
+        g.setColor(new Color(0, 0, 0));
+        g.fillRect(x, y, w, border);
+        g.fillRect(x, y, border, h);
+        g.fillRect(x, y + h - border, w, border);
+        g.fillRect(x + w - border, y, border, h);
+
         //win + lose message
         g.setColor(new Color(0, 0, 0));
         String messageWin = "", messageLose = "";
-        if(winner == WINNER.PLAYER1){
+        if (winner == WINNER.PLAYER1) {
             messageWin = "Left Player won!";
             messageLose = "Right Player lost!";
-        }else{
+        } else {
             messageWin = "Right Player won!";
             messageLose = "Left Player lost!";
         }
-        Draw.drawString(g, messageWin, x+w/2-(int)Draw.getStringWidth(messageWin, fontWinSize, g)/2, y+space, fontWinSize);
-        Draw.drawString(g, messageLose, x+w/2-(int)Draw.getStringWidth(messageLose, fontLoseSize, g)/2, y+2*space+fontLoseSize, fontLoseSize);
-        
+        Draw.drawString(g, messageWin, x + w / 2 - (int) Draw.getStringWidth(messageWin, fontWinSize, g) / 2, y + space, fontWinSize);
+        Draw.drawString(g, messageLose, x + w / 2 - (int) Draw.getStringWidth(messageLose, fontLoseSize, g) / 2, y + 2 * space + fontLoseSize, fontLoseSize);
+
         //replay message
         String messageReplay = "Press (I) to Replay";
-        Draw.drawString(g, messageReplay, x+w/4-(int)Draw.getStringWidth(messageReplay, fontReplayQuitSize, g)/2, y+h-2*space-fontReplayQuitSize, fontReplayQuitSize);
-        
+        Draw.drawString(g, messageReplay, x + w / 4 - (int) Draw.getStringWidth(messageReplay, fontReplayQuitSize, g) / 2, y + h - 2 * space - fontReplayQuitSize, fontReplayQuitSize);
+
         //quit message
         String messageQuit = "Press (O) to Quit";
-        Draw.drawString(g, messageQuit, x+w*3/4-(int)Draw.getStringWidth(messageQuit, fontReplayQuitSize, g)/2, y+h-2*space-fontReplayQuitSize, fontReplayQuitSize);
+        Draw.drawString(g, messageQuit, x + w * 3 / 4 - (int) Draw.getStringWidth(messageQuit, fontReplayQuitSize, g) / 2, y + h - 2 * space - fontReplayQuitSize, fontReplayQuitSize);
     }
 
     public void draw(Graphics g) {
@@ -192,12 +194,11 @@ public class Game {
             p.paddle.setDefaultPostion();
         }
     }
-    
+
     public void replay() {
         winner = WINNER.NONE;
         init();
         reset();
-        run();
     }
-    
+
 }

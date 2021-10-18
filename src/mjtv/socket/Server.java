@@ -1,19 +1,26 @@
 package mjtv.socket;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mjtv.Main;
 import mjtv.game.Paddle;
-import mjtv.socket.Network;
 
 public class Server extends Network {
 
     public Server(int port) {
         this.port = port;
         openServerSocket();
+        try {
+            Main.instance.mainMenu.setSocketStatus("Listening! IP -> " + InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         new Thread(() -> {
             run();
         }).start();
@@ -37,7 +44,10 @@ public class Server extends Network {
         openSocket();
         initStreams();
         System.out.println("Player Joined!");
-        Main.instance.game.initWithFrame();
+        
+        Main.instance.game.init();
+        Main.instance.game.getSocket = STATE.SERVER;
+        Main.instance.game.createFrame();
 
         String res;
         Scanner sc = new Scanner(in);
@@ -47,6 +57,7 @@ public class Server extends Network {
         }
         // end of Thread
         sc.close();
+        Main.instance.mainMenu.toggleAll(true);
         System.out.println("Disconnected!");
     }
 }

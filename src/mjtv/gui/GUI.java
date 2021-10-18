@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mjtv.Main;
+import mjtv.game.Game;
 import mjtv.socket.Client;
 import mjtv.socket.Network;
 import mjtv.socket.Network.STATE;
@@ -29,6 +30,10 @@ public class GUI extends javax.swing.JFrame {
         IP.setEnabled(flag);
         JOIN.setEnabled(flag);
         STARTSERVER.setEnabled(flag);
+    }
+    
+    public void setSocketStatus(String s) {
+        SOCKETSTATUS.setText(s);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,6 +53,7 @@ public class GUI extends javax.swing.JFrame {
         IP = new javax.swing.JTextField();
         IPLABEL = new javax.swing.JLabel();
         returnToMainFromPlay = new javax.swing.JButton();
+        SOCKETSTATUS = new javax.swing.JLabel();
         Help = new javax.swing.JPanel();
         Description = new javax.swing.JTextPane();
         returnToMainFromHelp = new javax.swing.JButton();
@@ -151,6 +157,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        SOCKETSTATUS.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout PlayLayout = new javax.swing.GroupLayout(Play);
         Play.setLayout(PlayLayout);
         PlayLayout.setHorizontalGroup(
@@ -170,9 +178,13 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(IP))
                             .addComponent(STARTSERVER, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JOIN))
-                    .addComponent(returnToMainFromPlay))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JOIN)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(PlayLayout.createSequentialGroup()
+                        .addComponent(returnToMainFromPlay)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SOCKETSTATUS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         PlayLayout.setVerticalGroup(
             PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +202,9 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(STARTSERVER)))
                     .addComponent(JOIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnToMainFromPlay)
+                .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(returnToMainFromPlay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SOCKETSTATUS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(176, Short.MAX_VALUE))
         );
 
@@ -251,18 +265,16 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_PLAYER1ActionPerformed
 
     private void PLAYER2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER2ActionPerformed
-        Main.instance.game.initWithFrame();
+        Main.instance.game.start();
     }//GEN-LAST:event_PLAYER2ActionPerformed
 
     private void JOINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JOINActionPerformed
-        toggleAll(false);
-        Main.instance.game.getSocket = STATE.CLIENT;
+        setSocketStatus("");
         Main.instance.game.client = new Client(IP.getText(), Network.PORT);
     }//GEN-LAST:event_JOINActionPerformed
 
     private void STARTSERVERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_STARTSERVERActionPerformed
         toggleAll(false);
-        Main.instance.game.getSocket = STATE.SERVER;
         Main.instance.game.server = new Server(Network.PORT);
     }//GEN-LAST:event_STARTSERVERActionPerformed
 
@@ -287,6 +299,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton PLAYER2;
     private javax.swing.JPanel Play;
     private javax.swing.JButton QUIT;
+    private javax.swing.JLabel SOCKETSTATUS;
     private javax.swing.JButton STARTSERVER;
     private mjtv.gui.StyleTabbedPane Wrapper;
     private javax.swing.JButton returnToMainFromHelp;
