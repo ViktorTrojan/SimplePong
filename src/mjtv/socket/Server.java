@@ -37,7 +37,7 @@ public class Server extends Network {
         openSocket();
         initStreams();
         System.out.println("Player Joined!");
-        Main.instance.game.init();
+        Main.instance.game.initWithFrame();
 
         String res;
         Scanner sc = new Scanner(in);

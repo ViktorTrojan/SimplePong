@@ -60,6 +60,12 @@ public class Draw extends JLabel implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) {
             Main.instance.game.player[1].paddle.acceleration = 0.8f;
         }
+        
+        if (e.getKeyCode() == KeyEvent.VK_I) {
+            Main.instance.game.replay();
+        } else if (e.getKeyCode() == KeyEvent.VK_O) {
+            Main.instance.game.jf.dispose();
+        }
     }
 
     public void resizeListener(JFrame jf) {

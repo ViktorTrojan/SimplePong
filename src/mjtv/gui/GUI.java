@@ -251,7 +251,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_PLAYER1ActionPerformed
 
     private void PLAYER2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER2ActionPerformed
-        Main.instance.game.init();
+        Main.instance.game.initWithFrame();
     }//GEN-LAST:event_PLAYER2ActionPerformed
 
     private void JOINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JOINActionPerformed
