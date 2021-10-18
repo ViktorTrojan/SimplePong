@@ -29,7 +29,7 @@ public class Client extends Network {
     }
     
     public void run() {
-        Main.instance.game.init();
+        Main.instance.game.initWithFrame();
         
         String res;
         Scanner sc = new Scanner(in);

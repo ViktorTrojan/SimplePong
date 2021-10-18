@@ -64,14 +64,14 @@ public class Ball {
             if (Main.instance.game.player[0].score == Game.WINPOINTS) {
                 Main.instance.game.winner = Game.WINNER.PLAYER1;
             }
-            Main.instance.game.scored();
+            Main.instance.game.reset();
             return true;
         } else if (x2 <= 0) {
             Main.instance.game.player[1].score++;
             if (Main.instance.game.player[1].score == Game.WINPOINTS) {
                 Main.instance.game.winner = Game.WINNER.PLAYER2;
             }
-            Main.instance.game.scored();
+            Main.instance.game.reset();
             return true;
         }
         return false;
