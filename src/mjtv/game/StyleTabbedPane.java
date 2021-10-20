@@ -1,4 +1,4 @@
-package mjtv.gui;
+package mjtv.game;
 
 import java.awt.Graphics;
 import javax.swing.JTabbedPane;

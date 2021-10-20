@@ -1,4 +1,4 @@
-package mjtv.gui;
+package mjtv.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,7 +10,7 @@ import javax.swing.JButton;
 
 public class StyleButton extends JButton {
 
-    StyleButton() {
+    public StyleButton() {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {
@@ -22,6 +22,9 @@ public class StyleButton extends JButton {
 
             @Override
             public void mousePressed(MouseEvent me) {
+                if (isEnabled()) {
+                    Sound.button.play(70);
+                }
             }
 
             @Override
@@ -29,7 +32,7 @@ public class StyleButton extends JButton {
             }
         });
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -40,9 +43,9 @@ public class StyleButton extends JButton {
         g2.setColor(getBackground());
         //  Border set 2 Pix
         g2.fillRoundRect(2, 2, getWidth() - 4, getHeight() - 4, 5, 5);
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+
     }
-    
-    
+
 }

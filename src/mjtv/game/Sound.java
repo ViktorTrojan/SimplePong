@@ -12,6 +12,7 @@ public class Sound {
 
     public static ClipAudio paddlehit = new ClipAudio("/res/sounds/paddlehit.wav");
     public static ClipAudio wallhit = new ClipAudio("/res/sounds/wallhit.wav");
+    public static ClipAudio button = new ClipAudio("/res/sounds/click.wav");
 }
 
 class ClipAudio {
