@@ -10,7 +10,8 @@ import javax.swing.JButton;
 
 public class StyleButton extends JButton {
 
-    StyleButton() {
+    public StyleButton() {
+        
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {
@@ -22,6 +23,7 @@ public class StyleButton extends JButton {
 
             @Override
             public void mousePressed(MouseEvent me) {
+                System.out.println("SOUND");
             }
 
             @Override

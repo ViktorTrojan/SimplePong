@@ -1,16 +1,5 @@
 package mjtv.gui;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.DigestInputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import mjtv.Main;
 import mjtv.socket.Client;
 import mjtv.socket.Network;
@@ -24,7 +13,6 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public void toggleAll(boolean flag) {
-        PLAYER1.setEnabled(flag);
         PLAYER2.setEnabled(flag);
         IP.setEnabled(flag);
         JOIN.setEnabled(flag);
@@ -41,7 +29,6 @@ public class GUI extends javax.swing.JFrame {
         HELP = new javax.swing.JButton();
         QUIT = new javax.swing.JButton();
         Play = new javax.swing.JPanel();
-        PLAYER1 = new javax.swing.JButton();
         PLAYER2 = new javax.swing.JButton();
         STARTSERVER = new javax.swing.JButton();
         JOIN = new javax.swing.JButton();
@@ -104,14 +91,6 @@ public class GUI extends javax.swing.JFrame {
 
         Wrapper.addTab("main", MainMenu);
 
-        PLAYER1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        PLAYER1.setText("1 PLAYER");
-        PLAYER1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PLAYER1ActionPerformed(evt);
-            }
-        });
-
         PLAYER2.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         PLAYER2.setText("2 PLAYER");
         PLAYER2.addActionListener(new java.awt.event.ActionListener() {
@@ -159,9 +138,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PlayLayout.createSequentialGroup()
-                        .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(PLAYER1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(PLAYER2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(PLAYER2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(PlayLayout.createSequentialGroup()
@@ -181,7 +158,6 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PlayLayout.createSequentialGroup()
                         .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PLAYER1)
                             .addComponent(IP, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(IPLABEL))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,7 +167,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(JOIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(returnToMainFromPlay)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         Wrapper.addTab("play", Play);
@@ -246,10 +222,6 @@ public class GUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_QUITActionPerformed
 
-    private void PLAYER1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER1ActionPerformed
-
-    }//GEN-LAST:event_PLAYER1ActionPerformed
-
     private void PLAYER2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER2ActionPerformed
         Main.instance.game.initWithFrame();
     }//GEN-LAST:event_PLAYER2ActionPerformed
@@ -283,7 +255,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton JOIN;
     private javax.swing.JPanel MainMenu;
     private javax.swing.JButton PLAY;
-    private javax.swing.JButton PLAYER1;
     private javax.swing.JButton PLAYER2;
     private javax.swing.JPanel Play;
     private javax.swing.JButton QUIT;

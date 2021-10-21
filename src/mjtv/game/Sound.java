@@ -76,4 +76,6 @@ class ClipAudio {
             gainControl.setValue(-80);
         }
     }
+
+
 }

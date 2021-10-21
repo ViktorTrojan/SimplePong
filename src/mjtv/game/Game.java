@@ -19,7 +19,7 @@ public class Game {
         PLAYER2
     }
 
-    public static final int FPS = 60, WINPOINTS = 1;
+    public static final int FPS = 60, WINPOINTS = 10;
     public Fpscounter fpscounter;
     public Draw draw;
     public JFrame jf;
@@ -96,15 +96,6 @@ public class Game {
     }
 
     public void drawEndScreen(Graphics g) {
-        /*int w = (int) Frame.cW(800), h = (int) Frame.cH(650);
-        g.setColor(new Color(255, 255, 255, 200));
-        g.fillRect((int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cW(w * 2), (int) Frame.cH(h * 2));
-
-        g.setColor(new Color(0, 0, 0));
-        if (winner == WINNER.PLAYER1) {
-            Draw.drawString(g, "Player 1 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
-        } else Draw.drawString(g, "Player 2 Won!", (int) Frame.cW(1920 / 2 - w), (int) Frame.cH(1080 / 2 - h), (int) Frame.cH(40));
-        */
         int w = (int)Frame.WIDTH/2;
         int h = (int)Frame.HEIGHT*3/8;
         int x = (int)Frame.WIDTH/2-w/2;
