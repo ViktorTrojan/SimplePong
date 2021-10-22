@@ -1,6 +1,7 @@
 package mjtv.gui;
 
 import mjtv.Main;
+import mjtv.game.Sound;
 import mjtv.socket.Client;
 import mjtv.socket.Network;
 import mjtv.socket.Network.STATE;
