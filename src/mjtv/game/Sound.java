@@ -38,7 +38,9 @@ class ClipAudio {
                 clip.open(audioIn);
                 setVolume(volume);
                 clip.start();
-            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+            } catch (IllegalStateException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+            }catch(Exception e){
+                
             }
         }).start();
     }

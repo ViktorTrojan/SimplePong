@@ -16,7 +16,7 @@ public class Player {
     }
 
     public void drawScore(Graphics g) {
-        int fontSize = (int) Frame.cW(100);
+        int fontSize = (int) Frame.cH(100);
         if (paddle.pos == Paddle.POS.LEFT) {
             Draw.drawString(g, String.valueOf(score), (int) (Frame.cW(1920 / 2 - Draw.getStringWidth(String.valueOf(score), fontSize, g) / 2) - fontSize), (int) Frame.cH(20), (int) Frame.cH(fontSize));
         } else if (paddle.pos == Paddle.POS.RIGHT) {

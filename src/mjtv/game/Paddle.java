@@ -45,7 +45,7 @@ public class Paddle {
 
     public void draw(Graphics g) {
         g.setColor(color);
-        g.fillRect((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(WIDTH), (int) Frame.cW(HEIGHT));
+        g.fillRect((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(WIDTH), (int) Frame.cH(HEIGHT));
     }
 
     public void setDefaultPostion() {

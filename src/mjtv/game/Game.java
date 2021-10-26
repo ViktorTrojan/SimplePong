@@ -72,10 +72,14 @@ public class Game {
         draw = new Draw();
         draw.setPreferredSize(new Dimension((int) Frame.WIDTH, (int) Frame.HEIGHT));
         //draw.resizeListener(jf);
-
+        jf.setResizable(false); 
         jf.getContentPane().add(draw);
         jf.addKeyListener(draw);
         jf.pack(); // sizes the frame so that all its contents are at or above their preferred sizes
+        jf.setMaximumSize(jf.getPreferredSize());
+        jf.setMinimumSize(jf.getPreferredSize());
+        jf.setPreferredSize(jf.getPreferredSize());
+        jf.setSize(jf.getPreferredSize());
         jf.setLocationRelativeTo(null); // center Window
         jf.requestFocus();
         jf.setVisible(true);
@@ -83,7 +87,7 @@ public class Game {
 
     public void drawBackground(Graphics g) {
         g.setColor(new Color(128, 128, 128));
-        g.fillRect(0, 0, (int) Frame.cW(1920), (int) Frame.cW(1080));
+        g.fillRect(0, 0, (int) Frame.cW(1920), (int) Frame.cH(1080));
     }
 
     public void drawMiddleLine(Graphics g) {
@@ -92,7 +96,7 @@ public class Game {
         g2d.setColor(new Color(128, 128, 255));
         BasicStroke bs1 = new BasicStroke(lineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0, new float[]{lineWidth * 2}, 0);
         g2d.setStroke(bs1);
-        g2d.drawLine((int) Frame.cW(1920 / 2), 0, (int) Frame.cW(1920 / 2), (int) Frame.cW(1080));
+        g2d.drawLine((int) Frame.cW(1920 / 2), (int) Frame.cH(0), (int) Frame.cW(1920 / 2), (int) Frame.cH(1080));
     }
 
     public void drawEndScreen(Graphics g) {
@@ -100,10 +104,10 @@ public class Game {
         int h = (int)Frame.HEIGHT*3/8;
         int x = (int)Frame.WIDTH/2-w/2;
         int y = (int)Frame.HEIGHT/2-h/2;
-        int fontWinSize = (int) Frame.cW(110);
-        int fontLoseSize = (int) Frame.cW(90);
-        int fontReplayQuitSize = (int) Frame.cW(45);
-        int space = (int) Frame.cW(25);
+        int fontWinSize = h/4;
+        int fontLoseSize = h/5;
+        int fontReplayQuitSize = h/8;
+        int space = h/14;
         int border = (int) Frame.cW(12);
         
         //background

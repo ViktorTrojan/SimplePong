@@ -150,7 +150,7 @@ public class Ball {
     public void draw(Graphics g) {
         drawTrail(g);
         g.setColor(color);
-        g.fillOval((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(SIZE), (int) Frame.cW(SIZE));
+        g.fillOval((int) Frame.cW(x), (int) Frame.cH(y), (int) Frame.cW(SIZE), (int) Frame.cH(SIZE));
     }
 
     public void reset() {
