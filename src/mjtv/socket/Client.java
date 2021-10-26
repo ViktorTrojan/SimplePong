@@ -9,7 +9,7 @@ import mjtv.game.Paddle;
 import mjtv.socket.Network;
 
 public class Client extends Network {
-
+    
     public Client(String ip, int port) {
         this.port = port;
         this.ip = ip;

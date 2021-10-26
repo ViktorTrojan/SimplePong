@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import mjtv.socket.Client;
+import mjtv.socket.Network;
 import mjtv.socket.Network.STATE;
 import mjtv.socket.Server;
 
@@ -195,4 +196,15 @@ public class Game {
         run();
     }
     
+    public void initServer(){
+        if(server==null){
+            server = new Server(Network.PORT);
+        }
+    }
+    
+    public void initClient(String ip){
+        if(client==null){
+            client = new Client(ip, Network.PORT);
+        }
+    }
 }
