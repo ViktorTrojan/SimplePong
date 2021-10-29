@@ -1,23 +1,17 @@
 package mjtv.gui;
 
 import java.awt.Color;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import mjtv.Main;
-import mjtv.game.Sound;
-import mjtv.socket.Client;
-import mjtv.socket.Network;
 import mjtv.socket.Network.STATE;
-import mjtv.socket.Server;
 
 public class GUI extends javax.swing.JFrame {
     
-    public Color BG;
-    
+    public Color bg;
 
     public GUI() {
         initComponents();
         this.setResizable(false);
-        BG = this.cancel.getBackground();
+        bg = this.cancel.getBackground();
     }
 
     public void toggleAll(boolean flag) {
@@ -25,7 +19,6 @@ public class GUI extends javax.swing.JFrame {
         ip.setEnabled(flag);
         join.setEnabled(flag);
         host.setEnabled(flag);
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -135,7 +128,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(help, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         Wrapper.addTab("main", MainMenu);
@@ -226,11 +219,6 @@ public class GUI extends javax.swing.JFrame {
         cancel.setMinimumSize(new java.awt.Dimension(120, 60));
         cancel.setPreferredSize(new java.awt.Dimension(120, 60));
         cancel.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
-        cancel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                cancelFocusGained(evt);
-            }
-        });
         cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelMouseEntered(evt);
@@ -309,18 +297,18 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(PlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(returnToMainFromPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         Wrapper.addTab("play", Play);
 
         description.setEditable(false);
-        description.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        description.setText("Ping Pong is a Game where you have to defend your Net with a Paddel. First Player to reach 10 Points Wins!\nPlayer1 movement W - S\nPlayer 2 movement ↑ - ↓\n\nCredits: M - Coding \nV - Coding \nJ - Graphics Designer \nT - Management");
+        description.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        description.setText("Pong is a Game where you have to defend your Net with a Paddel. First Player to reach 10 Points Wins! Have Fun!\nLeft Player movement: UP(W) - DOWN(S)\nRight Player movement: UP(↑) - DOWN(↓)\n\nCredits: \nM - Coding\nJ - Graphics Designer\nT - Management\nV - Coding");
 
         returnToMainFromHelp.setBackground(new java.awt.Color(0, 172, 181));
         returnToMainFromHelp.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        returnToMainFromHelp.setText("Return to Main");
+        returnToMainFromHelp.setText("Return To Main");
         returnToMainFromHelp.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
         returnToMainFromHelp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -341,11 +329,12 @@ public class GUI extends javax.swing.JFrame {
         HelpLayout.setHorizontalGroup(
             HelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HelpLayout.createSequentialGroup()
-                .addComponent(returnToMainFromHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 289, Short.MAX_VALUE))
-            .addGroup(HelpLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(HelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                    .addGroup(HelpLayout.createSequentialGroup()
+                        .addComponent(returnToMainFromHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         HelpLayout.setVerticalGroup(
@@ -353,9 +342,9 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(HelpLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(returnToMainFromHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         Wrapper.addTab("help", Help);
@@ -402,17 +391,12 @@ public class GUI extends javax.swing.JFrame {
         Main.instance.game.getSocket = STATE.NONE;
     }//GEN-LAST:event_cancelActionPerformed
 
-    private void cancelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cancelFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelFocusGained
-
     private void cancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseEntered
-        
         this.cancel.setBackground(Color.red);
     }//GEN-LAST:event_cancelMouseEntered
 
     private void cancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseExited
-        this.cancel.setBackground(BG);
+        this.cancel.setBackground(bg);
     }//GEN-LAST:event_cancelMouseExited
 
     private void joinMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinMouseEntered
@@ -420,7 +404,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_joinMouseEntered
 
     private void joinMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinMouseExited
-        this.join.setBackground(BG);
+        this.join.setBackground(bg);
     }//GEN-LAST:event_joinMouseExited
 
     private void localMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_localMouseEntered
@@ -428,7 +412,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_localMouseEntered
 
     private void localMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_localMouseExited
-        this.local.setBackground(BG);
+        this.local.setBackground(bg);
     }//GEN-LAST:event_localMouseExited
 
     private void hostMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostMouseEntered
@@ -436,7 +420,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_hostMouseEntered
 
     private void hostMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostMouseExited
-        this.host.setBackground(BG);
+        this.host.setBackground(bg);
     }//GEN-LAST:event_hostMouseExited
 
     private void returnToMainFromPlayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnToMainFromPlayMouseEntered
@@ -444,7 +428,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_returnToMainFromPlayMouseEntered
 
     private void returnToMainFromPlayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnToMainFromPlayMouseExited
-        this.returnToMainFromPlay.setBackground(BG);
+        this.returnToMainFromPlay.setBackground(bg);
     }//GEN-LAST:event_returnToMainFromPlayMouseExited
 
     private void returnToMainFromHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnToMainFromHelpActionPerformed
@@ -456,7 +440,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_returnToMainFromHelpMouseEntered
 
     private void returnToMainFromHelpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnToMainFromHelpMouseExited
-        this.returnToMainFromHelp.setBackground(BG);
+        this.returnToMainFromHelp.setBackground(bg);
     }//GEN-LAST:event_returnToMainFromHelpMouseExited
 
     private void playMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playMouseEntered
@@ -464,7 +448,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_playMouseEntered
 
     private void playMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playMouseExited
-        this.play.setBackground(BG);
+        this.play.setBackground(bg);
     }//GEN-LAST:event_playMouseExited
 
     private void helpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMouseEntered
@@ -472,7 +456,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_helpMouseEntered
 
     private void helpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMouseExited
-        this.help.setBackground(BG);
+        this.help.setBackground(bg);
     }//GEN-LAST:event_helpMouseExited
 
     private void quitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseEntered
@@ -480,7 +464,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_quitMouseEntered
 
     private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
-        this.quit.setBackground(BG);
+        this.quit.setBackground(bg);
     }//GEN-LAST:event_quitMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

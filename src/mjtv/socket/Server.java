@@ -1,13 +1,8 @@
 package mjtv.socket;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import mjtv.Main;
 import mjtv.game.Paddle;
-import mjtv.socket.Network;
 
 public class Server extends Network {
 

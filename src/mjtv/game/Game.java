@@ -63,11 +63,11 @@ public class Game {
     private void createFrame() {
         jf = new JFrame();
         if (getSocket == STATE.SERVER) {
-            jf.setTitle("Server Ping-Pong");
+            jf.setTitle("Server Pong");
         } else if (getSocket == STATE.CLIENT) {
-            jf.setTitle("Client Ping-Pong");
+            jf.setTitle("Client Pong");
         } else {
-            jf.setTitle("Ping-Pong");
+            jf.setTitle("Pong");
         }
         jf.setIconImage(new ImageIcon("src/res/images/logo.png").getImage());
         draw = new Draw();

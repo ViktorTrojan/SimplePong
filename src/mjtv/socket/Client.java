@@ -6,7 +6,6 @@ import java.util.Scanner;
 import mjtv.Main;
 import mjtv.game.Ball;
 import mjtv.game.Paddle;
-import mjtv.socket.Network;
 
 public class Client extends Network {
     
