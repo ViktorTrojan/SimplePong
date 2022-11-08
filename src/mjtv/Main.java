@@ -3,7 +3,7 @@ package mjtv;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import mjtv.game.Game;
-import mjtv.gui.GUI;
+import mjtv.game.GUI;
 
 public class Main {
     public static Main instance;

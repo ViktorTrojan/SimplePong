@@ -12,6 +12,7 @@ public class Sound {
 
     public static ClipAudio paddlehit = new ClipAudio("/res/sounds/paddlehit.wav");
     public static ClipAudio wallhit = new ClipAudio("/res/sounds/wallhit.wav");
+    public static ClipAudio button = new ClipAudio("/res/sounds/click.wav");
 }
 
 class ClipAudio {
@@ -38,9 +39,7 @@ class ClipAudio {
                 clip.open(audioIn);
                 setVolume(volume);
                 clip.start();
-            } catch (IllegalStateException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
-            }catch(Exception e){
-                
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
             }
         }).start();
     }
@@ -78,6 +77,4 @@ class ClipAudio {
             gainControl.setValue(-80);
         }
     }
-
-
 }

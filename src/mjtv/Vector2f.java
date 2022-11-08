@@ -1,4 +1,4 @@
-package mjtv.game;
+package mjtv;
 
 public class Vector2f {
 
