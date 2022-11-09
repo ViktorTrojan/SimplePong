@@ -11,7 +11,7 @@ public class Paddle {
         RIGHT
     }
 
-    private final float maxYVel = 14f; 
+    private final float maxYVel = 16f; 
     public static int HEIGHT = 200, WIDTH = 20, SPACE = 20;
     public float x, y, x2, y2;
     public float yVel;

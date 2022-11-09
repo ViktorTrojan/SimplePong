@@ -1,6 +1,5 @@
 package mjtv.game;
 
-
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import mjtv.Main;
@@ -18,9 +17,9 @@ public class FramerateHandler {
         if (FPS == 0) {
             FPS = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0].getDisplayMode().getRefreshRate();
         }
-        
+
         delta = 0;
-        
+
         lastTime = System.nanoTime();
     }
 
@@ -46,9 +45,9 @@ public class FramerateHandler {
         }
 
         render(g);
-
-        int latency = (int) ((System.nanoTime() - dur) / (1000000d));
-        sleep((int)(1000 / FPS - latency - 1));
+        //int latency = (int) ((System.nanoTime() - dur) / (1000000d));
+        //sleep((int)(1000 / FPS - latency - 1));
+        sleep(8);
     }
 
     public void sleep(int ms) {

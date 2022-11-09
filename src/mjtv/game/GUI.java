@@ -32,12 +32,14 @@ public class GUI extends javax.swing.JFrame {
         styleTabbedPane1 = new mjtv.game.StyleTabbedPane();
         uI_MainMenu1 = new mjtv.game.UI_MainMenu();
         uI_Multiplayer1 = new mjtv.game.UI_Multiplayer();
+        uI_Settings1 = new mjtv.game.UI_Settings();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         styleTabbedPane1.addTab("tab1", uI_MainMenu1);
         styleTabbedPane1.addTab("tab2", uI_Multiplayer1);
+        styleTabbedPane1.addTab("tab3", uI_Settings1);
 
         getContentPane().add(styleTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -34, 510, 480));
 
@@ -48,6 +50,7 @@ public class GUI extends javax.swing.JFrame {
     private mjtv.game.StyleTabbedPane styleTabbedPane1;
     private mjtv.game.UI_MainMenu uI_MainMenu1;
     private mjtv.game.UI_Multiplayer uI_Multiplayer1;
+    private mjtv.game.UI_Settings uI_Settings1;
     // End of variables declaration//GEN-END:variables
 
 }

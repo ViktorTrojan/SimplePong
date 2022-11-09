@@ -1,5 +1,6 @@
 package mjtv.game;
 
+import java.awt.Canvas;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +9,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import mjtv.Main;
@@ -15,16 +18,29 @@ import mjtv.socket.Network;
 
 public class Draw extends JLabel implements KeyListener {
 
+    public Draw() {
+//        new Thread(() -> {
+//            while(true) {
+//                try {
+//                    repaint();
+//                    Thread.sleep(8);
+//                } catch (InterruptedException ex) {
+//                    
+//                }
+//            }
+//        }).start();
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         Main.instance.game.framerateHandler.run(g);
         repaint();
     }
 
-    public static void drawString(Graphics g, String s, int x, int y, int size) {//, String fontName, int style, int size) {
+    public static void drawString(Graphics2D g2, String s, int x, int y, int size) {//, String fontName, int style, int size) {
         Font f = new Font("Calibri", Font.PLAIN, size);
-        g.setFont(f);
-        g.drawString(s, x, y + size);
+        g2.setFont(f);
+        g2.drawString(s, x, y + size);
     }
 
     public static float getStringWidth(String text, int size, Graphics g) {
@@ -46,7 +62,7 @@ public class Draw extends JLabel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
+
         if (!(Main.instance.game.player[0].pressingUP && Main.instance.game.player[0].pressingDOWN)) {
             if (!Main.instance.game.player[0].pressingUP && e.getKeyCode() == Config.P1_UP) {
                 Main.instance.game.player[0].eventUP();

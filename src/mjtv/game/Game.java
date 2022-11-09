@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import mjtv.socket.Client;
@@ -84,15 +85,16 @@ public class Game {
     }
 
     public void drawBackground(Graphics g) {
-        g.setColor(new Color(128, 128, 128));
+        g.setColor(new Color(42, 42, 42));
         g.fillRect(0, 0, (int) Frame.cW(1920), (int) Frame.cW(1080));
     }
 
     public void drawMiddleLine(Graphics g) {
         float lineWidth = Frame.cW(12);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setColor(new Color(128, 128, 255));
-        BasicStroke bs1 = new BasicStroke(lineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0, new float[]{lineWidth * 2}, 0);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(new Color(160, 166, 180));
+        BasicStroke bs1 = new BasicStroke(lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[]{lineWidth * 2}, 0);
         g2d.setStroke(bs1);
         g2d.drawLine((int) Frame.cW(1920 / 2), 0, (int) Frame.cW(1920 / 2), (int) Frame.cW(1080));
     }
@@ -117,6 +119,9 @@ public class Game {
         int space = (int) Frame.cW(25);
         int border = (int) Frame.cW(12);
 
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
         //background
         g.setColor(new Color(128, 128, 255));
         g.fillRect(x, y, w, h);
@@ -138,16 +143,16 @@ public class Game {
             messageWin = "Right Player won!";
             messageLose = "Left Player lost!";
         }
-        Draw.drawString(g, messageWin, x + w / 2 - (int) Draw.getStringWidth(messageWin, fontWinSize, g) / 2, y + space, fontWinSize);
-        Draw.drawString(g, messageLose, x + w / 2 - (int) Draw.getStringWidth(messageLose, fontLoseSize, g) / 2, y + 2 * space + fontLoseSize, fontLoseSize);
+        Draw.drawString(g2, messageWin, x + w / 2 - (int) Draw.getStringWidth(messageWin, fontWinSize, g) / 2, y + space, fontWinSize);
+        Draw.drawString(g2, messageLose, x + w / 2 - (int) Draw.getStringWidth(messageLose, fontLoseSize, g) / 2, y + 2 * space + fontLoseSize, fontLoseSize);
 
         //replay message
         String messageReplay = "Press (I) to Replay";
-        Draw.drawString(g, messageReplay, x + w / 4 - (int) Draw.getStringWidth(messageReplay, fontReplayQuitSize, g) / 2, y + h - 2 * space - fontReplayQuitSize, fontReplayQuitSize);
+        Draw.drawString(g2, messageReplay, x + w / 4 - (int) Draw.getStringWidth(messageReplay, fontReplayQuitSize, g) / 2, y + h - 2 * space - fontReplayQuitSize, fontReplayQuitSize);
 
         //quit message
         String messageQuit = "Press (O) to Quit";
-        Draw.drawString(g, messageQuit, x + w * 3 / 4 - (int) Draw.getStringWidth(messageQuit, fontReplayQuitSize, g) / 2, y + h - 2 * space - fontReplayQuitSize, fontReplayQuitSize);
+        Draw.drawString(g2, messageQuit, x + w * 3 / 4 - (int) Draw.getStringWidth(messageQuit, fontReplayQuitSize, g) / 2, y + h - 2 * space - fontReplayQuitSize, fontReplayQuitSize);
     }
 
     public void draw(Graphics g) {

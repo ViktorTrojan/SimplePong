@@ -105,6 +105,9 @@
               <Image iconType="3" name="/res/images/multiplayer.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button6ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="components.button.Button" name="button7">
           <Properties>
@@ -116,6 +119,9 @@
               <Image iconType="3" name="/res/images/settings.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button7ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="components.button.Button" name="button8">
           <Properties>
@@ -127,6 +133,9 @@
               <Image iconType="3" name="/res/images/exit.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button8ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

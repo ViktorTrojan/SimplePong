@@ -2,6 +2,8 @@ package mjtv.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import mjtv.Main;
 
 public class Player {
@@ -20,12 +22,15 @@ public class Player {
     }
 
     public void drawScore(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int fontSize = (int) Frame.cW(100);
         if (paddle.pos == Paddle.POS.LEFT) {
-            Draw.drawString(g, String.valueOf(score), (int) (Frame.cW(1920 / 2 - Draw.getStringWidth(String.valueOf(score), fontSize, g) / 2) - fontSize), (int) Frame.cH(20), (int) Frame.cH(fontSize));
+            Draw.drawString(g2, String.valueOf(score), (int) (Frame.cW(1920 / 2 - Draw.getStringWidth(String.valueOf(score), fontSize, g) / 2) - fontSize), (int) Frame.cH(20), (int) Frame.cH(fontSize));
         } else if (paddle.pos == Paddle.POS.RIGHT) {
-            Draw.drawString(g, String.valueOf(score), (int) (Frame.cW(1920 / 2 - Draw.getStringWidth(String.valueOf(score), fontSize, g) / 2) + fontSize), (int) Frame.cH(20), (int) Frame.cH(fontSize));
+            Draw.drawString(g2, String.valueOf(score), (int) (Frame.cW(1920 / 2 - Draw.getStringWidth(String.valueOf(score), fontSize, g) / 2) + fontSize), (int) Frame.cH(20), (int) Frame.cH(fontSize));
         }
+        g2.dispose();
     }
 
     public void draw(Graphics g) {
