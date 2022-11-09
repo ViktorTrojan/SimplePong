@@ -13,15 +13,17 @@ public class Server extends Network {
     public Server(int port) {
         this.port = port;
         openServerSocket();
-        try {
-            Main.instance.mainMenu.setSocketStatus("Listening! IP -> " + InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         new Thread(() -> {
             run();
         }).start();
+    }
+    
+    public String getHostIP() {
+        try {
+            return "Listening! IP -> " + InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException ex) {}
+        return null;
     }
 
     public void sendToClient(String msg) {

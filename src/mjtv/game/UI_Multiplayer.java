@@ -3,6 +3,10 @@ package mjtv.game;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
+import mjtv.Main;
+import mjtv.socket.Client;
+import mjtv.socket.Network;
+import mjtv.socket.Server;
 
 public class UI_Multiplayer extends javax.swing.JPanel {
 
@@ -11,7 +15,14 @@ public class UI_Multiplayer extends javax.swing.JPanel {
         UIManager.put("TextComponent.arc", 10);
         initComponents();
         
-        jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "127.0.0.1");
+        inp_ip.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "127.0.0.1");
+    }
+    
+    public void toggleAll(boolean flag) {
+        lbl_hostIP.setEnabled(flag);
+        btn_host.setEnabled(flag);
+        btn_join.setEnabled(flag);
+        inp_ip.setEnabled(flag);
     }
 
     @SuppressWarnings("unchecked")
@@ -19,35 +30,50 @@ public class UI_Multiplayer extends javax.swing.JPanel {
     private void initComponents() {
 
         panel1 = new components.panel.Panel();
-        button1 = new components.button.Button();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        button2 = new components.button.Button();
-        button3 = new components.button.Button();
+        btn_join = new components.button.Button();
+        inp_ip = new javax.swing.JTextField();
+        lbl_hostIP = new javax.swing.JLabel();
+        btn_host = new components.button.Button();
+        btn_back = new components.button.Button();
+        hostIP = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(243, 243, 251));
 
         panel1.setBackground(new java.awt.Color(230, 230, 244));
 
-        button1.setText("Join");
-        button1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-
-        jTextField1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Host IP:");
-
-        button2.setText("Host");
-        button2.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-
-        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/images/back.png"))); // NOI18N
-        button3.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        button3.addActionListener(new java.awt.event.ActionListener() {
+        btn_join.setText("Join");
+        btn_join.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        btn_join.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button3ActionPerformed(evt);
+                btn_joinActionPerformed(evt);
             }
         });
+
+        inp_ip.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        lbl_hostIP.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lbl_hostIP.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_hostIP.setText("Host IP:");
+
+        btn_host.setText("Host");
+        btn_host.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        btn_host.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hostActionPerformed(evt);
+            }
+        });
+
+        btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/images/back.png"))); // NOI18N
+        btn_back.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_backActionPerformed(evt);
+            }
+        });
+
+        hostIP.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        hostIP.setForeground(new java.awt.Color(36, 84, 40));
+        hostIP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -57,32 +83,35 @@ public class UI_Multiplayer extends javax.swing.JPanel {
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbl_hostIP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inp_ip, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(94, Short.MAX_VALUE))
+                                .addComponent(btn_join, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_host, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(hostIP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
+                .addComponent(btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_hostIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inp_ip)
+                    .addComponent(btn_join, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btn_host, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hostIP, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -103,17 +132,30 @@ public class UI_Multiplayer extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
+    private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
+        hostIP.setText("");
+        toggleAll(true);
         GUI.e.setIndex(0);
-    }//GEN-LAST:event_button3ActionPerformed
+    }//GEN-LAST:event_btn_backActionPerformed
+
+    private void btn_hostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hostActionPerformed
+        toggleAll(false);
+        Main.instance.game.server = new Server(Network.PORT);
+        hostIP.setText(Main.instance.game.server.getHostIP());
+    }//GEN-LAST:event_btn_hostActionPerformed
+
+    private void btn_joinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_joinActionPerformed
+        Main.instance.game.client = new Client(inp_ip.getText(), Network.PORT);
+    }//GEN-LAST:event_btn_joinActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.button.Button button1;
-    private components.button.Button button2;
-    private components.button.Button button3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private components.button.Button btn_back;
+    private components.button.Button btn_host;
+    private components.button.Button btn_join;
+    private javax.swing.JLabel hostIP;
+    private javax.swing.JTextField inp_ip;
+    private javax.swing.JLabel lbl_hostIP;
     private components.panel.Panel panel1;
     // End of variables declaration//GEN-END:variables
 }

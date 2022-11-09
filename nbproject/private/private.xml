@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/mjtv/game/FramerateHandler.java</file>
             <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/mjtv/game/GUI.java</file>
             <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/components/button/Button.java</file>
             <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/mjtv/game/UI_MainMenu.java</file>
@@ -13,6 +14,7 @@
             <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/mjtv/game/Game.java</file>
             <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/mjtv/game/Sound.java</file>
             <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/mjtv/game/StyleTabbedPane.java</file>
+            <file>file:/C:/Users/Anix/Downloads/uwu/SimplePong/src/mjtv/socket/Server.java</file>
         </group>
     </open-files>
 </project-private>
